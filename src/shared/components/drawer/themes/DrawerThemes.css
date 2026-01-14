@@ -1,0 +1,89 @@
+/* =============================================================================
+   DRAWER THEME STYLES
+   ============================================================================= */
+
+.drawer-theme-container {
+  padding: 8px;
+  border-top: 1px solid var(--border-color, #e0e0e0);
+  background-color: var(--drawer-bg, #fff);
+}
+
+.drawer-theme-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: none;
+  background-color: transparent;
+  color: var(--text-primary, #333);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  width: 100%;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.drawer-theme-selector:hover {
+  background-color: var(--hover-bg, rgba(0, 0, 0, 0.05));
+  transform: translateX(2px);
+}
+
+.drawer-theme-selector:active {
+  background-color: var(--active-bg, rgba(0, 0, 0, 0.1));
+  transform: translateX(1px);
+}
+
+.drawer-theme-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid var(--border-color, #e0e0e0);
+}
+
+.drawer-theme-text {
+  flex: 1;
+}
+
+/* Theme color indicators */
+.theme-dark .drawer-theme-icon {
+  background-color: #2d3748;
+}
+
+.theme-light .drawer-theme-icon {
+  background-color: #f7fafc;
+}
+
+.theme-blue .drawer-theme-icon {
+  background-color: #3182ce;
+}
+
+.theme-green .drawer-theme-icon {
+  background-color: #38a169;
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .drawer-theme-container {
+    background-color: var(--drawer-bg-dark, #2d3748);
+    border-top-color: var(--border-color-dark, #4a5568);
+  }
+  
+  .drawer-theme-selector {
+    color: var(--text-primary-dark, #fff);
+  }
+  
+  .drawer-theme-selector:hover {
+    background-color: var(--hover-bg-dark, rgba(255, 255, 255, 0.1));
+  }
+  
+  .drawer-theme-selector:active {
+    background-color: var(--active-bg-dark, rgba(255, 255, 255, 0.15));
+  }
+  
+  .drawer-theme-icon {
+    border-color: var(--border-color-dark, #4a5568);
+  }
+}

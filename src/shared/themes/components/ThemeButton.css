@@ -1,0 +1,429 @@
+/* =============================================================================
+   THEME BUTTON STYLES - Beautiful Theme Toggle Button
+   =============================================================================
+   Styles for the theme toggle button component */
+
+/* =============================================================================
+   MAIN THEME BUTTON
+   ============================================================================= */
+
+.theme-toggle-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--theme-surface, #252526);
+  border: 1px solid var(--theme-border, #3E3E42);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  font-family: inherit;
+  
+  /* Shadows for depth */
+  box-shadow: 
+    0 2px 8px var(--theme-shadow, rgba(0, 0, 0, 0.1)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Hover state */
+.theme-toggle-button.hovered {
+  transform: translateY(-1px);
+  border-color: var(--theme-primary, #4FC3F7);
+  box-shadow: 
+    0 4px 16px var(--theme-shadow, rgba(0, 0, 0, 0.15)),
+    0 0 0 1px var(--theme-primary, #4FC3F7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Pressed state */
+.theme-toggle-button.pressed {
+  transform: translateY(0);
+  box-shadow: 
+    0 1px 4px var(--theme-shadow, rgba(0, 0, 0, 0.2)),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Focus state for accessibility */
+.theme-toggle-button:focus-visible {
+  outline: 2px solid var(--theme-primary, #4FC3F7);
+  outline-offset: 2px;
+}
+
+/* =============================================================================
+   SIZE VARIANTS
+   ============================================================================= */
+
+.theme-button-small {
+  padding: 8px 12px;
+  gap: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.theme-button-medium {
+  padding: 12px 16px;
+  gap: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.theme-button-large {
+  padding: 16px 20px;
+  gap: 16px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+/* =============================================================================
+   THEME PREVIEW CIRCLE
+   ============================================================================= */
+
+.theme-preview {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--theme-border, #3E3E42);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.theme-button-small .theme-preview {
+  width: 20px;
+  height: 20px;
+}
+
+.theme-button-large .theme-preview {
+  width: 28px;
+  height: 28px;
+}
+
+.theme-color-segment {
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.theme-color-segment.primary {
+  flex: 2;
+}
+
+.theme-color-segment.secondary {
+  flex: 1;
+}
+
+.theme-color-segment.background {
+  flex: 1;
+}
+
+/* Animation on hover */
+.theme-toggle-button.hovered .theme-preview {
+  transform: scale(1.1);
+  border-color: var(--theme-primary, #4FC3F7);
+}
+
+/* =============================================================================
+   THEME ICON
+   ============================================================================= */
+
+.theme-icon {
+  font-size: 16px;
+  line-height: 1;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.theme-button-small .theme-icon {
+  font-size: 14px;
+}
+
+.theme-button-large .theme-icon {
+  font-size: 18px;
+}
+
+/* Icon animation on hover */
+.theme-toggle-button.hovered .theme-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* =============================================================================
+   THEME LABEL
+   ============================================================================= */
+
+.theme-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0; /* Allow text to wrap */
+}
+
+.theme-name {
+  font-weight: 600;
+  color: var(--theme-on-surface, #FFFFFF);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.theme-hint {
+  font-size: 11px;
+  color: var(--theme-disabled, #6A6A6A);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+}
+
+.theme-button-small .theme-hint {
+  font-size: 10px;
+}
+
+.theme-button-large .theme-hint {
+  font-size: 12px;
+}
+
+/* Show hint on hover */
+.theme-toggle-button.hovered .theme-hint {
+  opacity: 1;
+}
+
+/* =============================================================================
+   RIPPLE EFFECT
+   ============================================================================= */
+
+.ripple-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.ripple-effect {
+  position: absolute;
+  background: var(--theme-primary, #4FC3F7);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.6s ease;
+}
+
+.theme-toggle-button.pressed .ripple-effect {
+  opacity: 0.3;
+  transform: scale(2);
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 0.3;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+/* =============================================================================
+   GLOW EFFECT
+   ============================================================================= */
+
+.glow-effect {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    var(--theme-primary, #4FC3F7) 50%,
+    transparent 70%
+  );
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.theme-toggle-button.hovered .glow-effect {
+  opacity: 0.1;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+/* =============================================================================
+   COMPACT THEME BUTTON
+   ============================================================================= */
+
+.compact-theme-button {
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.compact-theme-button .theme-preview {
+  width: 20px;
+  height: 20px;
+}
+
+/* =============================================================================
+   THEME INDICATOR (READ-ONLY)
+   ============================================================================= */
+
+.theme-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.theme-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.theme-indicator .theme-name {
+  font-weight: 500;
+  color: var(--theme-on-surface, #FFFFFF);
+}
+
+.theme-indicator .theme-description {
+  font-size: 10px;
+  color: var(--theme-disabled, #6A6A6A);
+  opacity: 0.8;
+}
+
+/* =============================================================================
+   THEME-SPECIFIC ADJUSTMENTS
+   ============================================================================= */
+
+/* Light theme adjustments */
+.theme-toggle-button.light-theme {
+  background: var(--theme-background, #FFFFFF);
+  border-color: var(--theme-border, #D1D9E0);
+}
+
+.theme-toggle-button.light-theme.hovered {
+  background: var(--theme-surface, #F8F9FA);
+}
+
+/* Dark theme adjustments */
+.theme-toggle-button.dark-theme {
+  background: var(--theme-surface, #252526);
+  border-color: var(--theme-border, #3E3E42);
+}
+
+.theme-toggle-button.dark-theme.hovered {
+  background: var(--theme-surface-variant, #2D2D30);
+}
+
+/* =============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================= */
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .theme-toggle-button {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+  
+  .theme-label {
+    display: none; /* Hide labels on very small screens */
+  }
+  
+  .theme-toggle-button {
+    min-width: 44px; /* Ensure touch target size */
+    min-height: 44px;
+    justify-content: center;
+  }
+}
+
+/* =============================================================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================================================= */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .theme-toggle-button {
+    border-width: 2px;
+  }
+  
+  .theme-preview {
+    border-width: 3px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle-button,
+  .theme-preview,
+  .theme-icon,
+  .theme-hint,
+  .ripple-effect,
+  .glow-effect {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Focus indicators for keyboard navigation */
+@media (prefers-reduced-motion: no-preference) {
+  .theme-toggle-button:focus-visible {
+    animation: focus-pulse 2s infinite;
+  }
+}
+
+@keyframes focus-pulse {
+  0%, 100% { 
+    box-shadow: 
+      0 2px 8px var(--theme-shadow, rgba(0, 0, 0, 0.1)),
+      0 0 0 2px var(--theme-primary, #4FC3F7);
+  }
+  50% { 
+    box-shadow: 
+      0 2px 8px var(--theme-shadow, rgba(0, 0, 0, 0.1)),
+      0 0 0 4px var(--theme-primary, #4FC3F7);
+  }
+}
+
+/* =============================================================================
+   LOADING STATE
+   ============================================================================= */
+
+.theme-toggle-button.loading {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.theme-toggle-button.loading .theme-icon {
+  animation: loading-spin 1s linear infinite;
+}
+
+@keyframes loading-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

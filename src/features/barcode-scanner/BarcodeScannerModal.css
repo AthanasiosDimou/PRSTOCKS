@@ -1,0 +1,116 @@
+.scanner-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.scanner-modal-content {
+  background-color: white;
+  padding: 24px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.scanner-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.scanner-modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.scanner-close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.scanner-close-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.scanner-container {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #000;
+}
+
+#reader {
+  width: 100%;
+}
+
+.scanner-instructions {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Customize html5-qrcode standard styles */
+#reader__dashboard_section_csr button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #f0f0f0; /* Light grey background */
+  color: #333 !important; /* Force dark text */
+  cursor: pointer;
+  margin: 0 4px;
+  font-weight: 600;
+}
+
+#reader__dashboard_section_swaplink {
+  text-decoration: none;
+  border: 1px solid #eee;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #333 !important; /* Force dark text for camera swap link */
+  background: #fff;
+  display: inline-block;
+  margin-top: 8px;
+}
+
+/* Red aiming line to help target specific barcodes */
+#reader::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background-color: rgba(255, 0, 0, 0.7);
+  box-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: 100;
+}

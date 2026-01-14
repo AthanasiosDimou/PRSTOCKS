@@ -1,0 +1,520 @@
+/* =============================================================================
+ * INVENTORY TABLE STYLES
+ * =============================================================================
+ * Styles for the inventory table view with sorting, editing, and selection
+ */
+
+.inventory-table-container {
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid;
+  margin: 8px;
+  height: calc(100vh - 140px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Loading and Error States */
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px; /* Reduced from 60px 20px */
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--theme-border, #ddd);
+  border-top: 4px solid var(--theme-primary, #007ACC);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+.error-container button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  background: none;
+  border: 1px solid;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Table Header */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px; /* Reduced from 20px */
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.header-center {
+  text-align: center;
+  flex: 1;
+}
+
+.header-center h2 {
+  margin: 0 0 4px 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.header-center p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.back-button,
+.refresh-button,
+.delete-button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.back-button:hover,
+.refresh-button:hover,
+.delete-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px var(--theme-shadow, rgba(0, 0, 0, 0.15));
+}
+
+/* Search Section */
+.search-section {
+  margin-bottom: 20px;
+}
+
+.search-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--theme-primary, #007ACC);
+  box-shadow: 0 0 0 3px var(--theme-primary, #007ACC)20;
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--theme-border, #ddd);
+}
+
+/* Table Styles */
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.inventory-table th,
+.inventory-table td {
+  padding: 12px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--theme-divider, #E1E4E8);
+  position: relative;
+}
+
+.inventory-table th {
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.sortable-header {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.sortable-header:hover {
+  background-color: var(--theme-hover, rgba(0, 0, 0, 0.05)) !important;
+}
+
+.inventory-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.inventory-table tbody tr:hover {
+  background-color: var(--theme-hover, rgba(0, 0, 0, 0.05)) !important;
+}
+
+.inventory-table tbody tr.selected {
+  background-color: var(--theme-primary, #007ACC)20 !important;
+}
+
+/* Cell Editing */
+.editable-cell {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  min-height: 20px;
+  transition: background-color 0.2s ease;
+}
+
+.editable-cell:hover {
+  background-color: var(--theme-hover, rgba(0, 0, 0, 0.05));
+}
+
+.edit-cell input {
+  width: 100%;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+/* Action Buttons */
+.delete-row-button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.delete-row-button:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .table-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .header-left,
+  .header-right {
+    justify-content: center;
+  }
+  
+  .inventory-table {
+    font-size: 0.8rem;
+  }
+  
+  .inventory-table th,
+  .inventory-table td {
+    padding: 8px 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .inventory-table-container {
+    margin: 10px;
+    padding: 16px;
+  }
+  
+  .header-left,
+  .header-right {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .back-button,
+  .refresh-button,
+  .delete-button {
+    flex: 1;
+    min-width: 120px;
+  }
+  
+  .search-input {
+    font-size: 0.9rem;
+  }
+  
+  .inventory-table {
+    font-size: 0.75rem;
+  }
+  
+  .inventory-table th,
+  .inventory-table td {
+    padding: 6px 4px;
+  }
+  
+  /* Hide less important columns on mobile */
+  .inventory-table th:nth-child(6), /* Systems */
+  .inventory-table td:nth-child(6),
+  .inventory-table th:nth-child(8), /* Case Code */
+  .inventory-table td:nth-child(8),
+  .inventory-table th:nth-child(9), /* Size */
+  .inventory-table td:nth-child(9),
+  .inventory-table th:nth-child(11), /* Link */
+  .inventory-table td:nth-child(11),
+  .inventory-table th:nth-child(12), /* Notes */
+  .inventory-table td:nth-child(12) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .inventory-table-container {
+    margin: 5px;
+    padding: 12px;
+  }
+  
+  .header-center h2 {
+    font-size: 1.4rem;
+  }
+  
+  .back-button,
+  .refresh-button,
+  .delete-button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  /* Hide even more columns on very small screens */
+  .inventory-table th:nth-child(7), /* Date Added */
+  .inventory-table td:nth-child(7),
+  .inventory-table th:nth-child(10), /* Company */
+  .inventory-table td:nth-child(10) {
+    display: none;
+  }
+}
+
+/* Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Accessibility */
+.inventory-table th:focus,
+.inventory-table td:focus,
+.editable-cell:focus {
+  outline: 2px solid var(--theme-primary, #007ACC);
+  outline-offset: -2px;
+}
+
+/* Selection Checkbox Styles */
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--theme-primary, #007ACC);
+}
+
+/* Link Styles */
+.inventory-table a {
+  text-decoration: none;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.inventory-table a:hover {
+  background-color: var(--theme-hover, rgba(0, 0, 0, 0.05));
+}
+
+/* Status Indicators */
+.quantity-low {
+  color: var(--theme-warning, #FFC107) !important;
+  font-weight: 600;
+}
+
+.quantity-zero {
+  color: var(--theme-error, #EF4444) !important;
+  font-weight: 600;
+}
+
+.quantity-good {
+  color: var(--theme-success, #10B981) !important;
+}
+
+/* Table Scroll Indicators */
+.table-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: var(--theme-surface, #f5f5f5);
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: var(--theme-border, #ddd);
+  border-radius: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-disabled, #999);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .inventory-table-container {
+    margin: 4px;
+    padding: 8px;
+    height: calc(100vh - 120px);
+  }
+  
+  .table-header {
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .search-container {
+    width: 100%;
+  }
+  
+  .table-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .inventory-table th,
+  .inventory-table td {
+    padding: 6px 4px;
+    font-size: 0.8rem;
+  }
+  
+  .inventory-table th {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .inventory-table-container {
+    margin: 2px;
+    padding: 4px;
+    height: calc(100vh - 100px);
+  }
+  
+  .table-header h2 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .search-input {
+    padding: 6px 8px;
+    font-size: 0.85rem;
+  }
+  
+  .inventory-table th,
+  .inventory-table td {
+    padding: 4px 2px;
+    font-size: 0.75rem;
+  }
+  
+  .inventory-table th {
+    font-size: 0.7rem;
+  }
+  
+  .table-wrapper {
+    font-size: 0.8rem;
+  }
+}
+
+/* =============================================================================
+ * DRAG & DROP AND COLUMN MANAGEMENT STYLES
+ * =============================================================================
+ */
+
+/* Draggable column headers */
+.draggable-header {
+  position: relative;
+  user-select: none;
+}
+
+.draggable-header:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.draggable-header:active {
+  cursor: grabbing !important;
+}
+
+.draggable-header.dragging {
+  opacity: 0.5;
+  transform: rotate(2deg);
+}
+
+/* Column content wrapper */
+.column-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+}
+
+/* Resize handle */
+.resize-handle {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.draggable-header:hover .resize-handle {
+  opacity: 0.6;
+}
+
+.resize-handle:hover {
+  opacity: 1 !important;
+}
+
+/* Drag over effect */
+.draggable-header.drag-over {
+  background-color: rgba(0, 123, 204, 0.1);
+  border-left: 3px solid #007ACC;
+}
+
+/* Column context menu */
+.column-context-menu {
+  max-height: 300px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+.column-context-menu div:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
+}
+
+/* Column visibility checkbox */
+.column-context-menu input[type="checkbox"] {
+  cursor: pointer;
+}
+
+/* Hide columns animation */
+.column-hidden {
+  opacity: 0;
+  transform: scaleX(0);
+  transition: all 0.3s ease;
+}
+
+.column-visible {
+  opacity: 1;
+  transform: scaleX(1);
+  transition: all 0.3s ease;
+}

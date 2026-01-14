@@ -1,0 +1,519 @@
+/* =============================================================================
+ * STOCK MANAGEMENT APP STYLES
+ * =============================================================================
+ * Main styles for the Poseidon Racing Stock Management Application
+ */
+
+.stock-management-app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--theme-background, #ffffff);
+  color: var(--theme-text, #1f2937);
+  font-family: 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+}
+
+/* App Header */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid;
+  padding: 4px 0;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+/* Logo Section */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px; /* Reduced from 8px */
+  border-radius: 8px; /* Reduced from 12px */
+  background: linear-gradient(135deg, var(--theme-primary, #007ACC)10, transparent);
+  border: 2px solid var(--theme-primary, #007ACC)30;
+}
+
+.poseidon-logo {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.poseidon-logo:hover {
+  transform: scale(1.05);
+}
+
+.title-section h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--theme-primary, #007ACC), var(--theme-secondary, #6C7B95));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 8px 0;
+  background-clip: text;
+}
+
+.title-section p {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Stats Section */
+.stats-section {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background-color: var(--theme-surface-variant, rgba(0, 0, 0, 0.03));
+  border: 1px solid var(--theme-border, #E1E4E8);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* =============================================================================
+   NAVIGATION BAR
+   ============================================================================= */
+
+.app-navigation {
+  border-bottom: 1px solid;
+  padding: 4px 0;
+  position: sticky;
+  top: 50px;
+  z-index: 90;
+  backdrop-filter: blur(10px);
+}
+
+.nav-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+.nav-button {
+  padding: 8px 16px;
+  border: 1px solid;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: none;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  min-width: 100px;
+  justify-content: center;
+}
+
+.nav-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-button:active {
+  transform: translateY(0);
+}
+
+.nav-button.active {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Theme Toggle Button - Positioned at bottom */
+.theme-toggle-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 998;
+  
+  padding: 12px 20px;
+  border: none;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  
+  box-shadow: 0 4px 16px var(--theme-shadow, rgba(0, 0, 0, 0.15));
+  backdrop-filter: blur(10px);
+  
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  /* Pulse animation */
+  animation: subtlePulse 4s infinite;
+}
+
+.theme-toggle-button:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 24px var(--theme-shadow, rgba(0, 0, 0, 0.25));
+  animation: none; /* Stop pulse on hover */
+}
+
+.theme-toggle-button:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 2px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Footer */
+.app-footer {
+  border-top: 1px solid;
+  padding: 20px 0;
+  margin-top: auto;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.footer-content p {
+  margin: 0 0 8px 0;
+  font-size: 0.9rem;
+}
+
+.footer-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* Animations */
+@keyframes subtlePulse {
+  0%, 100% {
+    box-shadow: 0 4px 16px var(--theme-shadow, rgba(0, 0, 0, 0.15));
+  }
+  50% {
+    box-shadow: 0 4px 20px var(--theme-primary, #007ACC)40;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .header-content {
+    padding: 0 16px;
+  }
+  
+  .stats-section {
+    gap: 16px;
+  }
+  
+  .stat-item {
+    padding: 6px 12px;
+  }
+  
+  .stat-value {
+    font-size: 1.2rem;
+  }
+  
+  .main-content {
+    padding: 16px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    padding: 0 8px;
+  }
+  
+  .logo-section {
+    flex-direction: row;
+    text-align: center;
+    gap: 8px;
+  }
+  
+  .title-section h1 {
+    font-size: 1.4rem;
+  }
+  
+  .title-section p {
+    font-size: 0.85rem;
+  }
+  
+  .stats-section {
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .stat-item {
+    min-width: 80px;
+    padding: 4px 8px;
+  }
+  
+  .stat-value {
+    font-size: 1.1rem;
+  }
+  
+  .nav-content {
+    gap: 4px;
+    padding: 0 8px;
+  }
+  
+  .nav-button {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    min-width: 100px;
+  }
+  
+  .theme-toggle-button {
+    bottom: 16px;
+    right: 16px;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+  
+  .footer-info {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stock-management-app {
+    overflow: visible; /* Allow scrolling on mobile */
+  }
+  
+  .app-header {
+    position: fixed; /* Make header sticky on mobile */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--theme-background, #ffffff);
+  }
+  
+  .header-content {
+    padding: 0 8px;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    gap: 8px;
+  }
+  
+  .logo-section {
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  
+  .title-section {
+    flex: 1;
+    min-width: 0; /* Allow text to truncate */
+  }
+  
+  .title-section h1 {
+    font-size: 1.1rem;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .title-section p {
+    font-size: 0.75rem;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .stats-section {
+    flex-direction: row;
+    gap: 6px;
+    width: 100%;
+    justify-content: center;
+    order: 3; /* Move stats to bottom on mobile */
+    flex-basis: 100%;
+  }
+  
+  .stat-item {
+    width: auto;
+    min-width: 70px;
+    padding: 3px 6px;
+  }
+  
+  .stat-label {
+    font-size: 0.7rem;
+  }
+  
+  .stat-value {
+    font-size: 0.9rem;
+  }
+  
+  .nav-content {
+    gap: 4px;
+    padding: 0 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 60px; /* Add space for fixed header */
+  }
+  
+  .nav-button {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    min-width: 100px;
+    flex: 1;
+    max-width: calc(50% - 2px); /* Two buttons per row */
+  }
+  
+  .main-content {
+    margin-top: 120px; /* Space for fixed header */
+    padding: 8px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+  
+  .theme-toggle-button {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    padding: 12px;
+    font-size: 0.9rem;
+    min-width: auto;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 999;
+  }
+  
+  .main-content {
+    padding: 2px 0;
+  }
+  
+  .app-footer {
+    padding: 12px 0;
+  }
+  
+  .footer-content {
+    padding: 0 8px;
+  }
+  
+  .footer-content p {
+    font-size: 0.8rem;
+  }
+  
+  .footer-info {
+    font-size: 0.7rem;
+  }
+}
+
+/* Dark mode specific adjustments */
+@media (prefers-color-scheme: dark) {
+  .logo-container {
+    background: linear-gradient(135deg, var(--theme-primary, #4FC3F7)20, transparent);
+  }
+  
+  .theme-toggle-button {
+    backdrop-filter: blur(20px);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .logo-container {
+    border-width: 3px;
+  }
+  
+  .stat-item {
+    border-width: 2px;
+  }
+  
+  .theme-toggle-button {
+    border: 2px solid var(--theme-border, #000);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .poseidon-logo,
+  .theme-toggle-button {
+    transition: none;
+  }
+  
+  .theme-toggle-button {
+    animation: none;
+  }
+  
+  .theme-toggle-button:hover {
+    transform: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.theme-toggle-button:focus-visible {
+  outline: 3px solid var(--theme-primary, #007ACC);
+  outline-offset: 3px;
+}
+
+/* Print styles */
+@media print {
+  .theme-toggle-button,
+  .app-footer {
+    display: none;
+  }
+  
+  .app-header {
+    position: static;
+    border-bottom: 2px solid #000;
+  }
+  
+  .main-content {
+    padding: 0;
+  }
+}

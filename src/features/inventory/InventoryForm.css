@@ -1,0 +1,382 @@
+/* =============================================================================
+ * INVENTORY FORM STYLES
+ * =============================================================================
+ * Styles for the inventory item input form
+ */
+
+.inventory-form-container {
+  max-width: 1600px;
+  margin: 20px auto 0 auto;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid;
+  position: relative;
+  height: fit-content;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.form-header h2 {
+  margin: 0 0 1px 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.form-header p {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+/* Status Message */
+.status-message {
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-align: center;
+  animation: slideInDown 0.3s ease-out;
+}
+
+.status-message.success {
+  background-color: var(--theme-success, #10B981);
+}
+
+.status-message.error {
+  background-color: var(--theme-error, #EF4444);
+}
+
+/* Form Grid Layout */
+.inventory-form {
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+/* Form Fields */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.form-field.required label::after {
+  content: ' *';
+  color: var(--theme-error, #EF4444);
+}
+
+.form-field.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-field.half-width {
+  grid-column: span 2;
+}
+
+.form-field label {
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.form-field input,
+.form-field textarea {
+  padding: 6px 8px;
+  border: 1px solid;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  resize: vertical;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--theme-primary, #007ACC);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px var(--theme-shadow, rgba(0, 0, 0, 0.1));
+}
+
+.form-field input:hover,
+.form-field textarea:hover {
+  border-color: var(--theme-disabled, #8B949E);
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: var(--theme-disabled, #8B949E);
+  opacity: 0.7;
+}
+
+/* Autocomplete */
+.autocomplete-container {
+  position: relative;
+}
+
+.autocomplete-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  border: 1px solid;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  animation: slideInDown 0.2s ease-out;
+}
+
+.autocomplete-suggestion {
+  padding: 10px 14px; /* Reduced from 12px 16px */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid var(--theme-divider, #E1E4E8);
+}
+
+.autocomplete-suggestion:hover {
+  background-color: var(--theme-hover, rgba(0, 0, 0, 0.04));
+}
+
+.autocomplete-suggestion:last-child {
+  border-bottom: none;
+}
+
+/* Action Buttons */
+.form-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.add-button,
+.clear-button {
+  padding: 8px 16px;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 100px;
+}
+
+.add-button {
+  background-color: var(--theme-success, #10B981);
+  color: white;
+}
+
+.add-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--theme-shadow, rgba(0, 0, 0, 0.15));
+}
+
+.add-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.clear-button {
+  background-color: transparent;
+  border-color: var(--theme-border, #D1D9E0);
+}
+
+.clear-button:hover {
+  background-color: var(--theme-hover, rgba(0, 0, 0, 0.04));
+  transform: translateY(-1px);
+}
+
+/* View Inventory Section */
+.view-inventory-section {
+  text-align: center;
+  padding-top: 4px;
+  border-top: 1px solid var(--theme-divider, #E1E4E8);
+}
+
+.view-inventory-button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 160px;
+  background-color: var(--theme-primary, #007ACC);
+  color: white;
+}
+
+.view-inventory-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px var(--theme-shadow, rgba(0, 0, 0, 0.2));
+}
+
+/* Animations */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .inventory-form-container {
+    margin: 0 12px;
+    padding: 20px;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  
+  .form-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .add-button,
+  .clear-button {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .view-inventory-button {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .inventory-form-container {
+    margin: 0;
+    padding: 16px;
+    max-height: none; /* Remove height restriction */
+    border-radius: 0; /* Remove border radius on mobile */
+    border-left: none;
+    border-right: none;
+  }
+  
+  .form-header {
+    margin-bottom: 16px;
+    padding-top: 8px;
+  }
+  
+  .form-header h2 {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+  }
+  
+  .form-header p {
+    font-size: 0.9rem;
+  }
+  
+  .form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .form-field {
+    width: 100%;
+  }
+  
+  .form-field label {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  
+  .form-field input,
+  .form-field textarea {
+    padding: 12px;
+    font-size: 1rem; /* Larger for mobile */
+    border-radius: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-appearance: none; /* Remove iOS styling */
+    appearance: none; /* Standard property */
+  }
+  
+  .form-field textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+  
+  .form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  
+  .add-button,
+  .clear-button {
+    padding: 14px 20px;
+    font-size: 1rem;
+    width: 100%;
+    border-radius: 6px;
+  }
+  
+  .view-inventory-button {
+    padding: 14px 20px;
+    font-size: 1rem;
+    width: 100%;
+    margin-top: 16px;
+    border-radius: 6px;
+  }
+  
+  /* Ensure inputs don't zoom on iOS */
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Focus-visible for better accessibility */
+.add-button:focus-visible,
+.clear-button:focus-visible,
+.view-inventory-button:focus-visible {
+  outline: 2px solid var(--theme-primary, #007ACC);
+  outline-offset: 2px;
+}
+
+/* Number input specific styles */
+input[type="number"] {
+  appearance: textfield; /* Standard */
+  -moz-appearance: textfield; /* Firefox */
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* Chrome, Safari */
+  margin: 0;
+}
