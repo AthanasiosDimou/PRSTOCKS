@@ -81,6 +81,28 @@ async def startup_event():
 
 if __name__ == "__main__":
     import uvicorn
-    # Use 0.0.0.0 to accept connections from all network interfaces
-    # This allows access from other devices on the same network
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    import os
+    
+    # Check if SSL certificates exist
+    base_dir = os.path.dirname(__file__)
+    cert_file = os.path.join(base_dir, "cert.pem")
+    key_file = os.path.join(base_dir, "key.pem")
+    
+    ssl_enabled = os.path.exists(cert_file) and os.path.exists(key_file)
+    
+    if ssl_enabled:
+        print("🔒 Starting server with HTTPS enabled")
+        print(f"📁 Using certificates:")
+        print(f"   - {cert_file}")
+        print(f"   - {key_file}")
+        uvicorn.run(
+            app, 
+            host="0.0.0.0", 
+            port=8000,
+            ssl_keyfile=key_file,
+            ssl_certfile=cert_file
+        )
+    else:
+        print("⚠️  SSL certificates not found, starting with HTTP only")
+        print("💡 To enable HTTPS, run: cd python-backend && ./generate-ssl-cert.sh")
+        uvicorn.run(app, host="0.0.0.0", port=8000)
