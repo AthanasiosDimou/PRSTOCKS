@@ -5,8 +5,17 @@ echo "🔒 Generating self-signed SSL certificate for FastAPI backend..."
 
 # Detect the local network IP address
 # Get the first IP that is not localhost
-DETECTED_IP=$(hostname -I | awk '{print $1}')
-echo "🌐 Detected IP address: $DETECTED_IP"
+DETECTED_IP=$(hostname -I | awk '{for(i=1;i<=NF;i++) if($i!="127.0.0.1" && $i!~/^127\./) {print $i; exit}}')
+
+# Validate that an IP was detected
+if [ -z "$DETECTED_IP" ]; then
+  echo "⚠️  Warning: Could not detect external IP address. Using localhost only."
+  DETECTED_IP="127.0.0.1"
+  SAN_IPS="IP:127.0.0.1"
+else
+  echo "🌐 Detected IP address: $DETECTED_IP"
+  SAN_IPS="IP:127.0.0.1,IP:$DETECTED_IP"
+fi
 
 # Generate certificate valid for localhost, common private IP ranges, AND the detected IP
 openssl req -x509 -newkey rsa:4096 -nodes \
@@ -14,7 +23,7 @@ openssl req -x509 -newkey rsa:4096 -nodes \
   -keyout key.pem \
   -days 365 \
   -subj "/CN=localhost" \
-  -addext "subjectAltName=DNS:localhost,DNS:*.local,IP:127.0.0.1,IP:$DETECTED_IP"
+  -addext "subjectAltName=DNS:localhost,DNS:*.local,$SAN_IPS"
 
 chmod 600 key.pem
 chmod 644 cert.pem
