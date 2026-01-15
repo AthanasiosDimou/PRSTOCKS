@@ -3,7 +3,7 @@
 // =============================================================================
 // Form for adding new inventory items with validation and autocomplete
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '../../shared/themes/DualThemeProvider';
 import { databaseService } from '../../services/index';
 import { InventoryItem as ApiInventoryItem } from '../../services/api-client';
@@ -32,8 +32,6 @@ export const InventoryForm: React.FC<InventoryFormProps> = ({
   // =============================================================================
   // STATE MANAGEMENT
   // =============================================================================
-  const partNumberInputRef = useRef<HTMLInputElement>(null);
-  
   const [formData, setFormData] = useState<InventoryFormData>({
     part_number: '',
     quantity: '1',
@@ -52,35 +50,6 @@ export const InventoryForm: React.FC<InventoryFormProps> = ({
   const [statusMessage, setStatusMessage] = useState<{type: 'success' | 'error', message: string} | null>(null);
   const [autocompleteSuggestions, setAutocompleteSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-
-  // Barcode scanner event listener
-  useEffect(() => {
-    const handleBarcodeScanned = (event: Event) => {
-      const customEvent = event as CustomEvent<string>;
-      const scannedCode = customEvent.detail;
-      
-      console.log('Barcode scanned:', scannedCode);
-      
-      // Update form data with scanned code
-      setFormData(prev => ({
-        ...prev,
-        part_number: scannedCode
-      }));
-      
-      // Trigger autocomplete since we have a new value
-      if (scannedCode.length > 1) {
-        fetchAutocompleteSuggestions(scannedCode);
-      }
-      
-      // Focus the input
-      setTimeout(() => {
-        partNumberInputRef.current?.focus();
-      }, 100);
-    };
-
-    window.addEventListener('barcode-scanned', handleBarcodeScanned);
-    return () => window.removeEventListener('barcode-scanned', handleBarcodeScanned);
-  }, []);
 
   // =============================================================================
   // FORM HANDLERS
@@ -241,7 +210,6 @@ export const InventoryForm: React.FC<InventoryFormProps> = ({
             </label>
             <div className="autocomplete-container">
               <input
-                ref={partNumberInputRef}
                 type="text"
                 value={formData.part_number}
                 onChange={(e) => handleInputChange('part_number', e.target.value)}
