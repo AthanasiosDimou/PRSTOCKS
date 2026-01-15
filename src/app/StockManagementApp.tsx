@@ -8,6 +8,7 @@ import { MultiDeviceThemeProvider as DualThemeProvider, useMultiDeviceTheme as u
 import { BottomThemeDrawer } from '../shared/themes/components/BottomThemeDrawer';
 import { InventoryForm, InventoryTable } from '../features/inventory';
 import { FileManager } from '../features/file-management';
+import { BarcodeScannerButton } from '../features/barcode-scanner';
 import { databaseService } from '../services/index';
 import { InventoryItem, InventoryStats } from '../shared/types/database';
 import './StockManagementApp.css';
@@ -16,6 +17,9 @@ import './StockManagementApp.css';
 // VIEW TYPES
 // =============================================================================
 type ViewType = 'input' | 'table' | 'files';
+
+// Configuration for Barcode Scanner Button
+const SHOW_BARCODE_SCANNER = true;
 
 interface UserData {
   user_id: number;
@@ -51,6 +55,20 @@ const StockManagementAppInner: React.FC<StockManagementAppProps> = ({ currentUse
   const [isThemeDrawerOpen, setIsThemeDrawerOpen] = useState(false);
   const [stats, setStats] = useState<InventoryStats | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  // Focus event handler
+  useEffect(() => {
+    // Listen for successful barcode scans to ensure we are on the input page
+    const handleBarcodeScanned = () => {
+      // Switch to input view if not already there so the form can handle the focus
+      if (currentView !== 'input') {
+        setCurrentView('input');
+      }
+    };
+
+    window.addEventListener('barcode-scanned', handleBarcodeScanned);
+    return () => window.removeEventListener('barcode-scanned', handleBarcodeScanned);
+  }, [currentView]);
 
   // =============================================================================
   // DATA LOADING
@@ -242,6 +260,12 @@ const StockManagementAppInner: React.FC<StockManagementAppProps> = ({ currentUse
               </span>
             </div>
           </div>
+
+          {/* Barcode Scanner Button - Fixed Position */}
+          <BarcodeScannerButton 
+            visible={SHOW_BARCODE_SCANNER} 
+            onClick={() => {/* Event handled via window event listener */}}
+          />
 
           {/* Theme Button - Bottom positioned */}
           <button
