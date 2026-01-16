@@ -112,10 +112,12 @@ async def verify_user_password(verify_data: UserVerify, db: Session = Depends(ge
 @router.post("/admin/verify")
 async def verify_admin_password(verify_data: AdminVerify):
     """Verify admin password - hardcoded for now"""
+
     # For development - use a hardcoded admin password
     # In production, this should be properly secured and hashed
-    ADMIN_PASSWORD = "PR2526"  # Based on your earlier logs
-    
+    ADMIN_PASSWORD = "Password"  # Might do it in the future, obfsucation or encryption for the password, though for a local server, not necessary.
+
+
     received_password = verify_data.admin_password
     
     # Debug logging to see exactly what we receive
