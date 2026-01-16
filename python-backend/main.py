@@ -81,6 +81,16 @@ async def startup_event():
 
 if __name__ == "__main__":
     import uvicorn
-    # Use 0.0.0.0 to accept connections from all network interfaces
-    # This allows access from other devices on the same network
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    import os
+    
+    # SSL Configuration (for mobile camera access/HTTPS)
+    ssl_keyfile = "key.pem"
+    ssl_certfile = "cert.pem"
+    use_ssl = os.path.exists(ssl_keyfile) and os.path.exists(ssl_certfile)
+
+    if use_ssl:
+        print(f"🔒 Starting with SSL enabled (files found)")
+        uvicorn.run(app, host="0.0.0.0", port=8000, ssl_keyfile=ssl_keyfile, ssl_certfile=ssl_certfile)
+    else:
+        print(f"⚠️  Starting without SSL (cert files not found)")
+        uvicorn.run(app, host="0.0.0.0", port=8000)

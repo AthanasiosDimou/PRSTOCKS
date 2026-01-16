@@ -1,0 +1,17 @@
+[Unit]
+Description=PRSTOCKS BACKEND
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=einshadow
+Group=einshadow
+# Point this to your script location
+ExecStart=/bin/bash /home/einshadow/PRSTOCKS/python.sh
+WorkingDirectory=/home/einshadow/PRSTOCKS/python-backend
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

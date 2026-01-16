@@ -25,7 +25,7 @@ export const BarcodeScannerModal: React.FC<BarcodeScannerModalProps> = ({
   
   // Refs for stability check (debounce)
   const lastScannedRef = useRef<string>('');
-  const scanCountRef = useRef<number>(0);
+  const firstScanTimeRef = useRef<number>(0);
 
   // Initialize scanner when modal opens
   useEffect(() => {
@@ -33,7 +33,7 @@ export const BarcodeScannerModal: React.FC<BarcodeScannerModalProps> = ({
     
     // Reset stability counters
     lastScannedRef.current = '';
-    scanCountRef.current = 0;
+    firstScanTimeRef.current = 0;
 
     // Small timeout to ensure DOM is ready
     const timer = setTimeout(() => {
@@ -71,28 +71,25 @@ export const BarcodeScannerModal: React.FC<BarcodeScannerModalProps> = ({
           (decodedText) => {
             // Stability Check / Debounce
             // We require the same code to be scanned multiple times consecutively 
-            // to prevent random misreads or partial scans
-            const REQUIRED_STABLE_SCANS = 4;
+            // over a period of time to prevent random misreads or partial scans
+            const REQUIRED_STABLE_TIME_MS = 800; // 800ms stability required
+            const now = Date.now();
 
             if (decodedText !== lastScannedRef.current) {
-              // New code detected, reset counter
+              // New code detected, reset timer
               lastScannedRef.current = decodedText;
-              scanCountRef.current = 1;
-              // Optional: You could show a "Scanning..." indicator here
+              firstScanTimeRef.current = now;
             } else {
-              // Same code detected again
-              scanCountRef.current += 1;
-            }
-
-            // Only trigger success if we have enough stable scans
-            if (scanCountRef.current >= REQUIRED_STABLE_SCANS) {
-              console.log("Scan verified:", decodedText);
-              onScanSuccess(decodedText);
-              onClose();
-              
-              // Reset to prevent double firing before close completes
-              lastScannedRef.current = '';
-              scanCountRef.current = 0;
+              // Same code detected again, check if enough time has passed
+              if (now - firstScanTimeRef.current >= REQUIRED_STABLE_TIME_MS) {
+                console.log("Scan verified:", decodedText);
+                onScanSuccess(decodedText);
+                onClose();
+                
+                // Reset to prevent double firing
+                lastScannedRef.current = '';
+                firstScanTimeRef.current = 0;
+              }
             }
           },
           (errorMessage) => {

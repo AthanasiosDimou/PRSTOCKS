@@ -1,0 +1,17 @@
+[Unit]
+Description=PRSTOCKS FRONTEND
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=einshadow
+Group=einshadow
+# Point this to your script location
+ExecStart=/bin/bash /home/einshadow/PRSTOCKS/typescript.sh
+WorkingDirectory=/home/einshadow/PRSTOCKS
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
