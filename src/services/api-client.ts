@@ -63,17 +63,18 @@ class ApiClient {
     // Auto-detect server URL based on current host
     if (!baseUrl) {
       const currentHost = window.location.hostname;
-      console.log(`🔍 Current hostname detected: ${currentHost}`);
+      const protocol = window.location.protocol; 
+      console.log(`🔍 Current hostname detected: ${currentHost} with protocol: ${protocol}`);
       
       // If accessing from localhost, use localhost for backend
       // Otherwise, use the same host as the frontend (assumes backend runs on same machine)
       if (currentHost === 'localhost' || currentHost === '127.0.0.1') {
-        this.baseUrl = 'http://localhost:8000/api';
+        this.baseUrl = `${protocol}//localhost:8000/api`;
         console.log(`🏠 Using localhost backend`);
       } else {
-        // Use the current host with backend port
-        this.baseUrl = `http://${currentHost}:8000/api`;
-        console.log(`🌐 Using network backend`);
+        // Use the current host with backend port, MATCHING THE PROTOCOL (http or https)
+        this.baseUrl = `${protocol}//${currentHost}:8000/api`;
+        console.log(`🌐 Using network backend with protocol match`);
       }
     } else {
       this.baseUrl = baseUrl;
