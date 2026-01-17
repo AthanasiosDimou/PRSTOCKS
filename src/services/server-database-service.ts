@@ -15,21 +15,25 @@ class ServerDatabaseService {
     
     // Generate server URLs based on current host
     const currentHost = window.location.hostname;
-    console.log('🔍 ServerDatabaseService detected host:', currentHost);
+    // Detect protocol (http: or https:)
+    const protocol = window.location.protocol;
+    
+    console.log('🔍 ServerDatabaseService detected host:', currentHost, 'protocol:', protocol);
     
     if (currentHost === 'localhost' || currentHost === '127.0.0.1') {
       // Local development
       this.serverUrls = [
-        'http://localhost:8000/api',
-        'http://127.0.0.1:8000/api',
+        `${protocol}//localhost:8000/api`,
+        `${protocol}//127.0.0.1:8000/api`,
+        'http://localhost:8000/api', // Fallback to http if https fails locally
       ];
       console.log('🏠 Using localhost URLs');
     } else {
-      // Network access - use the same host as frontend
-      const networkUrl = 'http://' + currentHost + ':8000/api';
+      // Network access - use the same host AND protocol as frontend
+      const networkUrl = `${protocol}//${currentHost}:8000/api`;
       this.serverUrls = [
         networkUrl,
-        'http://localhost:8000/api',  // Fallback
+        `${protocol}//localhost:8000/api`,  // Fallback
       ];
       console.log('🌐 Using network URLs, primary:', networkUrl);
     }
